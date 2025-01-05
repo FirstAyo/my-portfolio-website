@@ -4,6 +4,7 @@ import { client } from "@/sanity/lib/client";
 import { projectPost } from "@/sanity/lib/interface";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Image from "next/image";
 import React from "react";
 import profilePix from "../../../../public/Festus.jpg";
@@ -43,7 +44,6 @@ async function getData(slug: string) {
 const dateFont = VT323({ weight: "400", subsets: ["latin"] });
 
 export const revalidate = 60;
-
 
 async function BlogArticle({ params }: { params: { slug: string } }) {
   const data: projectPost = await getData(params.slug);
@@ -121,7 +121,10 @@ async function BlogArticle({ params }: { params: { slug: string } }) {
 
           <div className="">
             <div className="prose prose-blue prose-lg max-w-none px-2 py-10">
-              <PortableText value={data.content} components={myPortableTextComponents} />
+              <PortableText
+                value={data.content}
+                components={myPortableTextComponents}
+              />
             </div>
 
             <div className="flex justify-center items-center gap-3 my-20">
@@ -150,8 +153,14 @@ export default BlogArticle;
 
 const myPortableTextComponents = {
   types: {
-    image: ({ value }: any) => (
-      <Image src={urlFor(value).url()} width={200} height={200} alt="image" className="w-[100%] md:h-96" />
+    image: ({ value }: { value: SanityImageSource}) => (
+      <Image
+        src={urlFor(value).url()}
+        width={200}
+        height={200}
+        alt="image"
+        className="w-[100%] md:h-96"
+      />
     ),
   },
 };
