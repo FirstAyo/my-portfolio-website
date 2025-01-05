@@ -1,7 +1,11 @@
+import FormInput from "../components/FormInput";
+import ProjectCard from "../components/ProjectCard";
+
 export default function Home() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <ProjectCard />
+      <FormInput />
     </div>
   );
 }
