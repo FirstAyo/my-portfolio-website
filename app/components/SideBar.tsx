@@ -1,6 +1,7 @@
 import React from "react";
-import { client, urlFor } from "../lib/sanity";
-import { projectCard } from "../lib/interface";
+import { client } from "@/sanity/lib/client";
+import { projectCards } from "@/sanity/lib/interface";
+import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +9,7 @@ async function getData() {
   const query = `
   *[_type == 'project'] | order(_createdAt desc){
   title,
-    smallDescription,
+    exerpt,
     "currentSlug": slug.current,
     featuredImage
 }`;
@@ -19,7 +20,7 @@ async function getData() {
 }
 
 async function SideBar() {
-  const data: projectCard[] = await getData();
+  const data: projectCards[] = await getData();
   return (
     <>
       <section className=" lg:w-[35%] mx-auto">
@@ -29,7 +30,7 @@ async function SideBar() {
               key={idx}
               className="rounded-t-md relative bg-white px-3 py-3 shadow-xl"
             >
-              <Link href={`/blog/${post.currentSlug}`}>
+              <Link href={`/projects/${post.currentSlug}`}>
                 {" "}
                 <Image
                   src={urlFor(post.featuredImage).url()}
@@ -41,13 +42,13 @@ async function SideBar() {
                 />
               </Link>
               <div className="">
-                <Link href={`/blog/${post.currentSlug}`}>
+                <Link href={`/projects/${post.currentSlug}`}>
                   <h3 className="my-4 font-semibold text-xl hover:text-blue-500 line-clamp-2">
                     {post.title}
                   </h3>
                 </Link>
                 <p className="text-gray-500 line-clamp-3 my-5">
-                  {post.smallDescription}
+                  {post.exerpt}
                 </p>
                 <p className="absolute top-0 left-0 bg-red-700/70 text-white font-semibold px-4 py-1">Category</p>
               </div>

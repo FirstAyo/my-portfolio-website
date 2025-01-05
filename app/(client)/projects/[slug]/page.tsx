@@ -42,6 +42,9 @@ async function getData(slug: string) {
 
 const dateFont = VT323({ weight: "400", subsets: ["latin"] });
 
+export const revalidate = 60;
+
+
 async function BlogArticle({ params }: { params: { slug: string } }) {
   const data: projectPost = await getData(params.slug);
   const socialIcons = [

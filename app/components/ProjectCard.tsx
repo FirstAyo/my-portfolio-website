@@ -25,6 +25,8 @@ async function getData() {
   return data;
 }
 
+export const revalidate = 60;
+
 async function ProjectCard() {
   const data: projectCards[] = await getData();
 
