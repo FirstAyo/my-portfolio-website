@@ -14,6 +14,12 @@ import emailIcon from "../../../../public/email.png";
 import linkedInIcon from "../../../../public/linkedin.png";
 import Link from "next/link";
 
+// interface PageProps {
+//   params: {
+//     slug: string;
+//   };
+// }
+
 async function getData(slug: string) {
   const query = `*[_type == 'project' && slug.current == '${slug}']{
   "currentSlug": slug.current,
